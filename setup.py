@@ -16,7 +16,12 @@ packages = [
 install_requires = [
     "Django==4",
     "rest_framework==3",
-    "autoutils==0"
+    "autoutils==0",
+    "Pygments==2",
+    "django-admin-autocomplete-filter==0",
+    "Markdown==3",
+    "Pillow=9",
+    "django-admin-list-filter-dropdown==1",
 ]
 
 setup(
