@@ -22,7 +22,7 @@ from django_autoutils.utils import get_request_obj
 logger = logging.getLogger("django_autoutils")
 
 
-def model_transaction(nowait=False, thread=False):
+def model_transaction(nowait=False, just_check=False):
     """
         Use this decorator for run input function in transaction
     """
@@ -41,18 +41,16 @@ def model_transaction(nowait=False, thread=False):
                 *args: extra data
                 **kwargs: extra data
             """
-            if obj.is_in_updating(nowait=nowait):
+            if obj.is_in_updating(nowait=nowait or just_check):
                 obj.message_log(request, logging.ERROR, f"last progress not finished yet")
+                return
+            if just_check:
+                func(obj, request, *args, **kwargs)
                 return
             try:
                 with transaction.atomic():
                     new_obj = obj.select_for_update()
-                    if thread:
-                        j = Thread(target=func, args=(new_obj, request, *args), kwargs=kwargs)
-                        j.start()
-                        obj.message_log(request, logging.INFO, f"job will run in background")
-                    else:
-                        return func(new_obj, request, *args, **kwargs)
+                    return func(new_obj, request, *args, **kwargs)
             except IntegrityError:
                 obj.message_log(request, logging.ERROR, f"error run in transaction function {func.__name__}")
 
