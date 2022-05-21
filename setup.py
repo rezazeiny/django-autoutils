@@ -26,7 +26,7 @@ install_requires = [
 
 setup(
     name="django-autoutils",
-    version="0.1.0",
+    version="0.1.1",
     author="Reza Zeiny",
     author_email="rezazeiny1998@gmail.com",
     description="Some Good Function In Django",
