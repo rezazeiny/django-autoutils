@@ -33,7 +33,7 @@ def get_pretty_json(data):
     """Function to display pretty version of our data"""
 
     # Convert the data to sorted, indented JSON
-    response = json.dumps(data, sort_keys=True, indent=2)
+    response = json.dumps(data, sort_keys=True, indent=2, ensure_ascii=False)
 
     # Truncate the data. Alter as needed
     response = response[:5000]
