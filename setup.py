@@ -14,19 +14,19 @@ packages = [
 ]
 
 install_requires = [
-    "Django==4",
-    "rest_framework==3",
-    "autoutils==0",
-    "Pygments==2",
-    "django-admin-autocomplete-filter==0",
-    "Markdown==3",
-    "Pillow=9",
-    "django-admin-list-filter-dropdown==1",
+    "Django>=4.0",
+    "djangorestframework>=3.0",
+    "autoutils>=0.1",
+    "Pygments>=2.0",
+    "django-admin-autocomplete-filter>=0.1",
+    "Markdown>=3.0",
+    "Pillow>=9.0",
+    "django-admin-list-filter-dropdown>=1.0",
 ]
 
 setup(
     name="django-autoutils",
-    version="0.1.1",
+    version="0.1.3",
     author="Reza Zeiny",
     author_email="rezazeiny1998@gmail.com",
     description="Some Good Function In Django",
