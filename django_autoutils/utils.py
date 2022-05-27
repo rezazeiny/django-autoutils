@@ -54,18 +54,21 @@ def handle_validation_error(e: "ValidationError", none_field=None):
 
 
 def get_model_serializer(model, fields, read_only_fields=None, base_serializer=serializers.ModelSerializer,
-                         extra_fields: dict = None):
+                         extra_fields: dict = None, meta_extra_fields: dict = None):
     """
         Get Model serializer
     """
     if extra_fields is None:
         extra_fields = {}
+    if meta_extra_fields is None:
+        meta_extra_fields = {}
     if not read_only_fields:
         read_only_fields = []
     meta_class = type('Meta', (), {
         "model": model,
         "fields": fields,
-        "read_only_fields": read_only_fields
+        "read_only_fields": read_only_fields,
+        **meta_extra_fields
     })
     return type('Serializer', (base_serializer,), {
         "Meta": meta_class,

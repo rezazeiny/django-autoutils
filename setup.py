@@ -14,7 +14,7 @@ packages = [
 ]
 
 install_requires = [
-    "Django>=4.0",
+    "Django>=3.0",
     "djangorestframework>=3.0",
     "autoutils>=0.1",
     "Pygments>=2.0",
@@ -26,7 +26,7 @@ install_requires = [
 
 setup(
     name="django-autoutils",
-    version="0.2.0",
+    version="0.2.1",
     author="Reza Zeiny",
     author_email="rezazeiny1998@gmail.com",
     description="Some Good Function In Django",
