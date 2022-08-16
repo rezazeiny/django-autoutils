@@ -1,14 +1,12 @@
 """
     All utils for model
 """
-import hashlib
 import logging
 import os
-import random
-import string
-from threading import Thread
 from typing import Callable
 
+from autoutils.redis import RedisHandler
+from autoutils.script import id_generator
 from django.contrib.auth import get_user_model
 from django.contrib.messages import add_message
 from django.db import models, transaction, IntegrityError, OperationalError
@@ -110,9 +108,8 @@ def upload_file(instance, filename=None) -> str:
         (str) : path of file
     """
     filename, file_extension = os.path.splitext(filename)
-    random_char = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(96))
-    hash_date = hashlib.md5(str(timezone.now().timestamp()).encode()).hexdigest()
-    path = os.path.join(f"{instance.__class__.__name__}", f"{random_char}{hash_date}{file_extension}")
+    path = os.path.join(f"{instance.__class__.__name__}",
+                        f"{id_generator(size=8)}{RedisHandler.get_hash(timezone.now().timestamp())}{file_extension}")
     return path
 
 
