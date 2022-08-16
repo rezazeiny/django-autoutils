@@ -3,6 +3,7 @@
 """
 import logging
 import os
+import string
 from typing import Callable
 
 from autoutils.redis import RedisHandler
@@ -108,8 +109,9 @@ def upload_file(instance, filename=None) -> str:
         (str) : path of file
     """
     filename, file_extension = os.path.splitext(filename)
-    path = os.path.join(f"{instance.__class__.__name__}",
-                        f"{id_generator(size=8)}{RedisHandler.get_hash(timezone.now().timestamp())}{file_extension}")
+    random_char = id_generator(size=8, chars=string.ascii_lowercase + string.digits)
+    now_time = RedisHandler.get_hash(timezone.now().timestamp())
+    path = os.path.join(f"{instance.__class__.__name__}", f"{random_char}{now_time}{file_extension}")
     return path
 
 
