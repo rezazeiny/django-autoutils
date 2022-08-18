@@ -6,7 +6,6 @@ import os
 import string
 from typing import Callable
 
-from autoutils.redis import RedisHandler
 from autoutils.script import id_generator
 from django.contrib.auth import get_user_model
 from django.contrib.messages import add_message
@@ -110,8 +109,8 @@ def upload_file(instance, filename=None) -> str:
     """
     filename, file_extension = os.path.splitext(filename)
     random_char = id_generator(size=8, chars=string.ascii_lowercase + string.digits)
-    now_time = RedisHandler.get_hash(timezone.now().timestamp())
-    path = os.path.join(f"{instance.__class__.__name__}", f"{random_char}{now_time}{file_extension}")
+    now_time = hex(int(timezone.now().timestamp()))[2:]
+    path = os.path.join(f"{instance.__class__.__name__}", f"{now_time}{random_char}{file_extension}")
     return path
 
 

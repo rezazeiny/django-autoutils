@@ -29,7 +29,7 @@ setup(
     version="0.2.3",
     author="Reza Zeiny",
     author_email="rezazeiny1998@gmail.com",
-    description="Some Good Function In Django",
+    description="",
     install_requires=install_requires,
     long_description=long_description,
     long_description_content_type="text/markdown",

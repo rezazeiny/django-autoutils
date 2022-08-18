@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "django-autoutils"
+version = "0.2.4"
+description = "Some Good Function In Django"
+authors = ["Reza Zeiny <rezazeiny1998@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/rezazeiny/django-autoutils"
+repository = "https://github.com/rezazeiny/django-autoutils"
+keywords = ["django-autoutils"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+include = [
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.0"
+djangorestframework = "^3.0"
+autoutils = "^0.1"
+Pygments = "^2.0"
+django-admin-autocomplete-filter = "^0.7"
+Markdown = "^3.0"
+Pillow = "^9.0"
+django-admin-list-filter-dropdown = "^1.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
