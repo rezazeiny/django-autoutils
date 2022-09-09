@@ -193,6 +193,8 @@ class AvatarAdmin:
         Use this class for showing avatar image and icon for some models
     """
     avatar_field = "avatar"
+    avatar_icon_field = None
+    avatar_image_field = None
 
     def _get_avatar_obj(self, obj):
         return obj
@@ -203,7 +205,7 @@ class AvatarAdmin:
         """
             Show avatar icon
         """
-        return get_edit_icon(obj, image_field=self.avatar_field)
+        return get_edit_icon(obj, image_field=self.avatar_icon_field or self.avatar_field)
 
     @admin_display(description=_("image"))
     @avatar_wrapper
@@ -211,7 +213,7 @@ class AvatarAdmin:
         """
             Show avatar image
         """
-        return get_avatar_image(getattr(obj, self.avatar_field),
+        return get_avatar_image(getattr(obj, self.avatar_image_field or self.avatar_field),
                                 title=str(obj), link=get_edit_url(obj))
 
 

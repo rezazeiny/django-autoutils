@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-autoutils"
-version = "0.2.4"
+version = "0.2.5"
 description = "Some Good Function In Django"
 authors = ["Reza Zeiny <rezazeiny1998@gmail.com>"]
 license = "MIT"
@@ -19,7 +19,7 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-Django = "^3.0"
+Django = "^4.0"
 djangorestframework = "^3.0"
 autoutils = "^0.1"
 Pygments = "^2.0"
