@@ -20,6 +20,16 @@ from django_autoutils.utils import get_request_obj
 logger = logging.getLogger("django_autoutils")
 
 
+def slug_generator(first_char_size=3, num_size=4, last_char_size=3):
+    """
+        Generate slug
+    """
+    # noinspection PyTypeChecker
+    return (f"{id_generator(first_char_size, string.ascii_uppercase)}"
+            f"{id_generator(num_size, string.digits)}"
+            f"{id_generator(last_char_size, string.ascii_uppercase)}")
+
+
 def model_transaction(nowait=False, just_check=False, current_user=False):
     """
         Use this decorator for run input function in transaction
@@ -104,30 +114,48 @@ def view_transaction(get_object: "Callable" = None, nowait=False):
     return inner
 
 
+def time_random_generator():
+    """
+        Get random char by time
+    """
+    # noinspection PyTypeChecker
+    random_char = id_generator(size=8, chars=string.ascii_lowercase + string.digits)
+    now_time = hex(int(timezone.now().timestamp()))[2:]
+    return f"{now_time}{random_char}"
+
+
 def upload_file(instance, filename=None) -> str:
     """
         Upload user image
-
-    Returns:
-        (str) : path of file
     """
     filename, file_extension = os.path.splitext(filename)
-    random_char = id_generator(size=8, chars=string.ascii_lowercase + string.digits)
-    now_time = hex(int(timezone.now().timestamp()))[2:]
-    path = os.path.join(f"{instance.__class__.__name__}", f"{now_time}{random_char}{file_extension}")
+    path = os.path.join(f"{instance.__class__.__name__}", f"{time_random_generator()}{file_extension}")
     return path
 
 
 class AbstractModel(models.Model):
     """
-        All models must be extend this model
+        All models must be extended this model
     """
     BASE_PERMISSION_OBJECT = None
+    slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
     insert_dt = models.DateTimeField(_("insert time"), auto_now_add=True)
     update_dt = models.DateTimeField(_("update time"), auto_now=True)
 
     class Meta:
         abstract = True
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        """
+            Add slug
+        """
+        while not self.slug:
+            new_slug = slug_generator()
+            if not self.__class__.objects.filter(slug=new_slug).exists():
+                self.slug = new_slug
+
+        super().save(force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)
 
     def _get_message(self, message):
         return f"'{self}': {message}"
