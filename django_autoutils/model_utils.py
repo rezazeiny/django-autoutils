@@ -138,7 +138,7 @@ class AbstractModel(models.Model):
         All models must be extended this model
     """
     BASE_PERMISSION_OBJECT = None
-    slug = models.SlugField(unique=True, editable=False, blank=True, default=slug_generator)
+    slug = models.SlugField(unique=True, editable=False, blank=True, null=True, default=slug_generator)
     insert_dt = models.DateTimeField(_("insert time"), auto_now_add=True)
     update_dt = models.DateTimeField(_("update time"), auto_now=True)
 
