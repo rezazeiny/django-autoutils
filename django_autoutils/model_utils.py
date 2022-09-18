@@ -138,25 +138,11 @@ class AbstractModel(models.Model):
         All models must be extended this model
     """
     BASE_PERMISSION_OBJECT = None
-    slug = models.SlugField(unique=True, editable=False, blank=True, null=True, default=slug_generator)
     insert_dt = models.DateTimeField(_("insert time"), auto_now_add=True)
     update_dt = models.DateTimeField(_("update time"), auto_now=True)
 
     class Meta:
         abstract = True
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        """
-            Add slug
-        """
-        if self.id is None:
-            while True:
-                if not self.__class__.objects.filter(slug=self.slug).exists():
-                    break
-                self.slug = slug_generator()
-
-        super().save(force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)
 
     def _get_message(self, message):
         return f"'{self}': {message}"
