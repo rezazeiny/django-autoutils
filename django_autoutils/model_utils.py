@@ -138,7 +138,7 @@ class AbstractModel(models.Model):
         All models must be extended this model
     """
     BASE_PERMISSION_OBJECT = None
-    slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
+    slug = models.SlugField(unique=True, editable=False, blank=True, default=slug_generator)
     insert_dt = models.DateTimeField(_("insert time"), auto_now_add=True)
     update_dt = models.DateTimeField(_("update time"), auto_now=True)
 
@@ -150,10 +150,11 @@ class AbstractModel(models.Model):
         """
             Add slug
         """
-        while not self.slug:
-            new_slug = slug_generator()
-            if not self.__class__.objects.filter(slug=new_slug).exists():
-                self.slug = new_slug
+        if self.id is None:
+            while True:
+                if not self.__class__.objects.filter(slug=self.slug).exists():
+                    break
+                self.slug = slug_generator()
 
         super().save(force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)
 
