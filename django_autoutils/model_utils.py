@@ -138,6 +138,7 @@ class AbstractModel(models.Model):
         All models must be extended this model
     """
     BASE_PERMISSION_OBJECT = None
+    is_active = models.BooleanField(_("is active"), default=True)
     insert_dt = models.DateTimeField(_("insert time"), auto_now_add=True)
     update_dt = models.DateTimeField(_("update time"), auto_now=True)
 
@@ -224,3 +225,20 @@ class AbstractModel(models.Model):
             Update one object
         """
         return self.queryset().update(**data)
+
+
+class AbstractSlugModel(AbstractModel):
+    slug = models.SlugField(unique=True, editable=False, blank=True)
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        """
+            Add slug
+        """
+        while not self.slug:
+            new_slug = slug_generator()
+            if not self.__class__.objects.filter(slug=new_slug).exists():
+                self.slug = new_slug
+        super().save(*args, **kwargs)
