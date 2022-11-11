@@ -138,6 +138,7 @@ class AbstractModel(models.Model):
         All models must be extended this model
     """
     BASE_PERMISSION_OBJECT = None
+    LOGGER = logger
     is_active = models.BooleanField(_("is active"), default=True)
     insert_dt = models.DateTimeField(_("insert time"), auto_now_add=True)
     update_dt = models.DateTimeField(_("update time"), auto_now=True)
@@ -151,16 +152,32 @@ class AbstractModel(models.Model):
     def _set_log_data(self, data: dict):
         pass
 
+    @classmethod
+    def class_log(cls, level: int, message: str, data: dict = None):
+        if data is None:
+            data = {}
+        if cls.LOGGER.isEnabledFor(level):
+            # noinspection PyProtectedMember
+            cls.LOGGER._log(level, message, (data,))
+
     def log(self, level: int, message: str, data: dict = None):
         """
             Use for all logs
         """
         if data is None:
             data = {}
-        if logger.isEnabledFor(level):
+        if self.LOGGER.isEnabledFor(level):
             self._set_log_data(data)
             # noinspection PyProtectedMember
-            logger._log(level, self._get_message(message), (data,))
+            self.LOGGER._log(level, self._get_message(message), (data,))
+
+    @classmethod
+    def class_message_log(cls, request, level: int, message: str, data: dict = None):
+        if request is None:
+            request = get_request_obj()
+        if request is not None:
+            add_message(request, level, message)
+        cls.class_log(level=level, message=message, data=data)
 
     def message_log(self, request, level: int, message: str, data: dict = None):
         """
@@ -176,6 +193,7 @@ class AbstractModel(models.Model):
         """
             Get object for permission
         """
+        # noinspection PyUnresolvedReferences
         if self.id is None:
             return None
         return self._get_obj()
@@ -218,6 +236,7 @@ class AbstractModel(models.Model):
         """
             Get queryset of one object
         """
+        # noinspection PyUnresolvedReferences
         return self.__class__.objects.filter(id=self.id)
 
     def update_data(self, data: dict):
@@ -239,6 +258,7 @@ class AbstractSlugModel(AbstractModel):
         """
         while not self.slug:
             new_slug = slug_generator()
+            # noinspection PyUnresolvedReferences
             if not self.__class__.objects.filter(slug=new_slug).exists():
                 self.slug = new_slug
         super().save(*args, **kwargs)
