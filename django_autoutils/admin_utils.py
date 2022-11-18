@@ -274,11 +274,20 @@ class AdvanceSearchAdmin:
 
 
 class AdvanceListFilter:
+
+    def _get_list_filter(self, request):
+        list_filters = list(super().get_list_filter(request))
+        return list_filters
+
     def get_list_filter(self, request):
         """
             Get list filter
         """
-        list_filters = list(super().get_list_filter(request))
+        list_filters = list(self._get_list_filter(request))
+        return self.handle_list_filter(list_filters)
+
+    @staticmethod
+    def handle_list_filter(list_filters):
         obtained_list_filters = []
         for list_filter in list_filters:
             if type(list_filter) == tuple:
