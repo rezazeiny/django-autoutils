@@ -9,6 +9,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter
 
+from django_autoutils.admin_numeric_filter.admin import SingleNumericFilter, RangeNumericFilter
 from django_autoutils.html_tag import get_edit_link, get_edit_icon, get_avatar_image, get_edit_url, get_pretty_json
 
 logger = logging.getLogger("django_autoutils")
@@ -276,6 +277,7 @@ class AdvanceSearchAdmin:
 class AdvanceListFilter:
 
     def _get_list_filter(self, request):
+        # noinspection PyUnresolvedReferences
         list_filters = list(super().get_list_filter(request))
         return list_filters
 
@@ -292,10 +294,9 @@ class AdvanceListFilter:
         for list_filter in list_filters:
             if type(list_filter) == tuple:
                 name, filter_type = list_filter
-                if filter_type == RelatedDropdownFilter:
-                    obtained_list_filters.append((name, RelatedDropdownFilter))
-                elif filter_type == CountRelatedDropdownFilter:
-                    obtained_list_filters.append((name, CountRelatedDropdownFilter))
+                if filter_type in (RelatedDropdownFilter, CountRelatedDropdownFilter,
+                                   SingleNumericFilter, RangeNumericFilter):
+                    obtained_list_filters.append((name, filter_type))
                 elif filter_type == AutoCompleteFieldListFilter:
                     obtained_list_filters.append(AutocompleteFilterFactory(name.split("__")[-1], name))
                 continue
