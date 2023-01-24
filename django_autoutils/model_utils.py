@@ -158,7 +158,7 @@ class AbstractModel(models.Model):
             data = {}
         if cls.LOGGER.isEnabledFor(level):
             # noinspection PyProtectedMember
-            cls.LOGGER._log(level, message, (data,))
+            cls.LOGGER._log(level, message, (), extra=data)
 
     def log(self, level: int, message: str, data: dict = None):
         """
@@ -169,7 +169,7 @@ class AbstractModel(models.Model):
         if self.LOGGER.isEnabledFor(level):
             self._set_log_data(data)
             # noinspection PyProtectedMember
-            self.LOGGER._log(level, self._get_message(message), (data,))
+            self.LOGGER._log(level, self._get_message(message), (), extra=data)
 
     @classmethod
     def class_message_log(cls, request, level: int, message: str, data: dict = None):
