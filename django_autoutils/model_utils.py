@@ -153,33 +153,33 @@ class AbstractModel(models.Model):
         pass
 
     @classmethod
-    def class_log(cls, level: int, message: str, data: dict = None):
-        if data is None:
-            data = {}
+    def class_log(cls, level: int, message: str, extra: dict = None):
+        if extra is None:
+            extra = {}
         if cls.LOGGER.isEnabledFor(level):
             # noinspection PyProtectedMember
-            cls.LOGGER._log(level, message, (), extra=data)
+            cls.LOGGER._log(level, message, (), extra=extra)
 
-    def log(self, level: int, message: str, data: dict = None):
+    def log(self, level: int, message: str, extra: dict = None):
         """
             Use for all logs
         """
-        if data is None:
-            data = {}
+        if extra is None:
+            extra = {}
         if self.LOGGER.isEnabledFor(level):
-            self._set_log_data(data)
+            self._set_log_data(extra)
             # noinspection PyProtectedMember
-            self.LOGGER._log(level, self._get_message(message), (), extra=data)
+            self.LOGGER._log(level, self._get_message(message), (), extra=extra)
 
     @classmethod
-    def class_message_log(cls, request, level: int, message: str, data: dict = None):
+    def class_message_log(cls, request, level: int, message: str, extra: dict = None):
         if request is None:
             request = get_request_obj()
         if request is not None:
             add_message(request, level, message)
-        cls.class_log(level=level, message=message, data=data)
+        cls.class_log(level=level, message=message, extra=extra)
 
-    def message_log(self, request, level: int, message: str, data: dict = None):
+    def message_log(self, request, level: int, message: str, extra: dict = None):
         """
             For message log
         """
@@ -187,7 +187,7 @@ class AbstractModel(models.Model):
             request = get_request_obj()
         if request is not None:
             add_message(request, level, self._get_message(message))
-        self.log(level=level, message=message, data=data)
+        self.log(level=level, message=message, extra=extra)
 
     def get_obj(self):
         """
