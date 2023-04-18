@@ -19,7 +19,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "autoutils"
-version = "0.5.4"
+version = "0.7.0"
 description = "Some Good Function"
 category = "main"
 optional = false
@@ -446,7 +446,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "7058e185bad8700c268c1cafd2078fead20a38095b0da0a185e1a2376ef2310f"
+content-hash = "05dab4c843d92d632ca7620231762238460b03681d086e8d7052f9db47e3ba35"
 
 [metadata.files]
 asgiref = [
@@ -458,8 +458,8 @@ async-timeout = [
     {file = "async_timeout-4.0.2-py3-none-any.whl", hash = "sha256:8ca1e4fcf50d07413d66d1a5e416e42cfdf5851c981d679a09851a6853383b3c"},
 ]
 autoutils = [
-    {file = "autoutils-0.5.4-py3-none-any.whl", hash = "sha256:dfef40013aaca698a101748daa3aeb6e4b20d94c72b36b6ade5fda1cb5444dce"},
-    {file = "autoutils-0.5.4.tar.gz", hash = "sha256:8f8031826d8859556df556829032acd304b6211c00ccffdaaa593b3400921423"},
+    {file = "autoutils-0.7.0-py3-none-any.whl", hash = "sha256:663f4602fe2f98048d5eac14cbb2ca168e05e0e66a6046be0485d2b713c36671"},
+    {file = "autoutils-0.7.0.tar.gz", hash = "sha256:89fa62be3659b358207272824889d4fb34c04f88715ef70448cd53d71717d961"},
 ]
 "backports.zoneinfo" = [
     {file = "backports.zoneinfo-0.2.1-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:da6013fd84a690242c310d77ddb8441a559e9cb3d3d59ebac9aca1a57b2e18bc"},
