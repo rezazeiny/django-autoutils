@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-autoutils"
-version = "1.3.0"
+version = "1.4.0"
 description = "Some Good Function In Django"
 authors = ["Reza Zeiny <rezazeiny1998@gmail.com>"]
 license = "MIT"
@@ -19,14 +19,14 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-Django = "^4.0"
-djangorestframework = "^3.0"
-autoutils = "^0.5"
-Pygments = "^2.0"
-django-admin-autocomplete-filter = "^0.7"
-Markdown = "^3.0"
-Pillow = "^9.0"
-django-admin-list-filter-dropdown = "^1.0"
+Django = "~=4.0"
+djangorestframework = "~=3.0"
+autoutils = "~=0.6"
+Pygments = "~=2.0"
+django-admin-autocomplete-filter = "~=0.7"
+Markdown = "~=3.0"
+Pillow = "~=9.0"
+django-admin-list-filter-dropdown = "~=1.0"
 
 [tool.poetry.dev-dependencies]
 

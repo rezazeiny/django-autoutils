@@ -189,6 +189,14 @@ class AbstractModel(models.Model):
             add_message(request, level, self._get_message(message))
         self.log(level=level, message=message, extra=extra)
 
+    def raise_exception(self, request, level: int, message, admin_panel=False,
+                        exception_class=exceptions.ValidationError):
+        if admin_panel:
+            self.message_log(request, level, message)
+            return
+        self.log(level, message)
+        raise exception_class(message)
+
     def get_obj(self):
         """
             Get object for permission

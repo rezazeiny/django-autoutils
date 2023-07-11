@@ -2,18 +2,18 @@
 
 [[package]]
 name = "asgiref"
-version = "3.7.0"
+version = "3.7.1"
 description = "ASGI specs, helper code, and adapters"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "asgiref-3.7.0-py3-none-any.whl", hash = "sha256:14087924af5be5d8103d6f2edffe45a0bf7ab1b2a771b6f00a6db8c302f21f34"},
-    {file = "asgiref-3.7.0.tar.gz", hash = "sha256:5d6c4a8a1c99f58eaa3bc392ee04e3587b693f09e3af1f3f16a09094f334eb52"},
+    {file = "asgiref-3.7.1-py3-none-any.whl", hash = "sha256:33958cb2e4b3cd8b1b06ef295bd8605cde65b11df51d3beab39e2e149a610ab3"},
+    {file = "asgiref-3.7.1.tar.gz", hash = "sha256:8de379fcc383bcfe4507e229fc31209ea23d4831c850f74063b2c11639474dd2"},
 ]
 
 [package.dependencies]
-typing-extensions = {version = "*", markers = "python_version < \"3.11\""}
+typing-extensions = {version = ">=4", markers = "python_version < \"3.11\""}
 
 [package.extras]
 tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
@@ -32,14 +32,14 @@ files = [
 
 [[package]]
 name = "autoutils"
-version = "0.5.9"
+version = "0.7.0"
 description = "Some Good Function"
 category = "main"
 optional = false
 python-versions = ">=3.6,<4.0"
 files = [
-    {file = "autoutils-0.5.9-py3-none-any.whl", hash = "sha256:e46c5b63586822994c95bdf444bef340d35ad769341dc7911f7299302854a921"},
-    {file = "autoutils-0.5.9.tar.gz", hash = "sha256:0630e93bb842ee1a41e20331525a57d95526341d1714c190ac382bcc2c6aa31f"},
+    {file = "autoutils-0.7.0-py3-none-any.whl", hash = "sha256:663f4602fe2f98048d5eac14cbb2ca168e05e0e66a6046be0485d2b713c36671"},
+    {file = "autoutils-0.7.0.tar.gz", hash = "sha256:89fa62be3659b358207272824889d4fb34c04f88715ef70448cd53d71717d961"},
 ]
 
 [package.dependencies]
@@ -749,14 +749,14 @@ test = ["tox (>=1.8.1)"]
 
 [[package]]
 name = "typing-extensions"
-version = "4.6.0"
+version = "4.6.1"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "typing_extensions-4.6.0-py3-none-any.whl", hash = "sha256:6ad00b63f849b7dcc313b70b6b304ed67b2b2963b3098a33efe18056b1a9a223"},
-    {file = "typing_extensions-4.6.0.tar.gz", hash = "sha256:ff6b238610c747e44c268aa4bb23c8c735d665a63726df3f9431ce707f2aa768"},
+    {file = "typing_extensions-4.6.1-py3-none-any.whl", hash = "sha256:6bac751f4789b135c43228e72de18637e9a6c29d12777023a703fd1a6858469f"},
+    {file = "typing_extensions-4.6.1.tar.gz", hash = "sha256:558bc0c4145f01e6405f4a5fdbd82050bd221b119f4bf72a961a1cfd471349d6"},
 ]
 
 [[package]]
@@ -807,4 +807,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "7058e185bad8700c268c1cafd2078fead20a38095b0da0a185e1a2376ef2310f"
+content-hash = "3f93cf4e064cc7f047f28a11d4cec54e093ff9ef95d1f9e3ce1c977b1016bbc6"
