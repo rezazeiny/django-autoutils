@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-autoutils"
-version = "1.5.0"
+version = "1.5.1"
 description = "Some Good Function In Django"
 authors = ["Reza Zeiny <rezazeiny1998@gmail.com>"]
 license = "MIT"

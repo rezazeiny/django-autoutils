@@ -32,14 +32,14 @@ files = [
 
 [[package]]
 name = "autoutils"
-version = "0.8.0"
+version = "0.8.1"
 description = "Some Good Function"
 category = "main"
 optional = false
 python-versions = ">=3.6,<4.0"
 files = [
-    {file = "autoutils-0.8.0-py3-none-any.whl", hash = "sha256:5864243a59adbd96a610756147b3aec43d9aca07d82d1fb2a712eb0cc54a12c4"},
-    {file = "autoutils-0.8.0.tar.gz", hash = "sha256:3f46f26afcda4a66852c65d65639099762346e55b6ec326193c08685726050c6"},
+    {file = "autoutils-0.8.1-py3-none-any.whl", hash = "sha256:33a047eb9993663b7fb06188bd846f192bcf6b05422efc4cd986b7b7fb470832"},
+    {file = "autoutils-0.8.1.tar.gz", hash = "sha256:bc43b28abcc68555f3e218f86a71916c2d3b0001eca3171436c62c91d9db12de"},
 ]
 
 [package.dependencies]
