@@ -69,11 +69,11 @@ class RangeNumericFilter(admin.FieldListFilter):
         if self.parameter_name is None:
             self.parameter_name = self.field_path
 
-        if self.parameter_name + "_from" in params:
+        if self.parameter_name_from in params:
             value = params.pop(self.field_path + "_from")
             self.used_parameters[self.field_path + "_from"] = value
 
-        if self.parameter_name + "_to" in params:
+        if self.parameter_name_to in params:
             value = params.pop(self.field_path + "_to")
             self.used_parameters[self.field_path + "_to"] = value
 
@@ -101,27 +101,24 @@ class RangeNumericFilter(admin.FieldListFilter):
         return queryset.filter(**filters)
 
     def expected_parameters(self):
-        return [
-            f"{self.parameter_name}_from",
-            f"{self.parameter_name}_to",
-        ]
+        return [{self.parameter_name_from}, {self.parameter_name_to}]
 
     def choices(self, changelist):
         return ({
                     "request": self.request,
                     "parameter_name": self.parameter_name,
                     "form": RangeNumericForm(name=self.parameter_name, data={
-                        self.parameter_name + "_from": self.get_parameter(self.parameter_name + "_from"),
-                        self.parameter_name + "_to": self.get_parameter(self.parameter_name + "_to"),
+                        self.parameter_name_from: self.get_parameter(self.parameter_name_from),
+                        self.parameter_name_to: self.get_parameter(self.parameter_name_to),
                     }),
                 },)
 
-    def get_parameter(self, key):
-        parameter = self.used_parameters.get(key, None)
+    def get_parameter(self, key, default=None):
+        parameter = self.used_parameters.get(key, default)
         if hasattr(parameter, "__iter__"):
             for item in parameter:
                 return item
-            return None
+            return default
         return parameter
 
 
@@ -165,12 +162,11 @@ class SliderNumericFilter(RangeNumericFilter):
                     "request": self.request,
                     "min": min_value,
                     "max": max_value,
-                    "value_from": self.used_parameters.get(self.parameter_name + "_from", min_value),
-                    "value_to": self.used_parameters.get(self.parameter_name + "_to", max_value),
+                    "value_from": self.get_parameter(self.parameter_name_from, min_value),
+                    "value_to": self.get_parameter(self.parameter_name_to, max_value),
                     "form": SliderNumericForm(name=self.parameter_name, data={
-                        self.parameter_name + "_from": self.used_parameters.get(self.parameter_name + "_from",
-                                                                                min_value),
-                        self.parameter_name + "_to": self.used_parameters.get(self.parameter_name + "_to", max_value),
+                        self.parameter_name_from: self.get_parameter(self.parameter_name_from, min_value),
+                        self.parameter_name_to: self.get_parameter(self.parameter_name_to, max_value),
                     })
                 },)
 
